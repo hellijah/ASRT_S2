@@ -1,16 +1,16 @@
 # ASRT_S2
 
 # Projet : Script de Configuration Automatisée pour Machine Linux
-## 1. Objectif
+## Objectif
 Créer un script Bash pour permettre aux utilisateurs de configurer automatiquement une machine Linux. Ce script doit permettre aux utilisateurs de personnaliser facilement le nom d'hôte, de créer des utilisateurs, d'installer des logiciels et de configurer les paramètres réseau (Bonus).
-## 2. Cahier des charges
+## Cahier des charges
 ### Interface Utilisateur
 Le script doit afficher un menu avec les options suivantes :
-Configuration du nom d'hôte.
-Création d'un nouvel utilisateur.
-Installation de logiciels.
-Configuration réseau (objectif bonus).
-Quitter.
+1. Configuration du nom d'hôte.
+2. Création d'un nouvel utilisateur.
+3. Installation de logiciels.
+4. Configuration réseau (objectif bonus).
+5. Quitter.
 ### Configuration du Nom d'Hôte
 Permet à l'utilisateur de spécifier un nouveau nom d'hôte pour la machine.
 Le script met à jour le nom d'hôte de la machine avec la nouvelle valeur.
