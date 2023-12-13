@@ -2,7 +2,8 @@
 
 # Projet : Script de Configuration Automatisée pour Machine Linux
 ## Objectif
-Créer un script Bash pour permettre aux utilisateurs de configurer automatiquement une machine Linux. Ce script doit permettre aux utilisateurs de personnaliser facilement le nom d'hôte, de créer des utilisateurs, d'installer des logiciels et de configurer les paramètres réseau (Bonus).
+Créer un script Bash pour permettre aux utilisateurs de configurer automatiquement une machine Linux. 
+Ce script doit permettre aux utilisateurs de personnaliser facilement le nom d'hôte, de créer des utilisateurs, d'installer des logiciels et de configurer les paramètres réseau (Bonus).
 ## Cahier des charges
 ### Interface Utilisateur
 Le script doit afficher un menu avec les options suivantes :
