@@ -74,7 +74,7 @@ install_software() {
 # Function for network configuration
 network_configuration() {
     echo "vous avez choisi l'option Configuration Réseau"
-    notify-send Atention "Network configuration is not implemented in this demo."
+    notify-send Atention "La configuration réseau n’est pas implémentée dans cette démo ."
 }
 
 while true; do
