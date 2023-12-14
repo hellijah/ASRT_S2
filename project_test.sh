@@ -65,11 +65,26 @@ fi
 
 # Function to install software
 install_software() {
-    read -p "spécifier les noms des logiciels à installer : " software_list
-    sudo apt-get update
-    sudo apt-get install -y $software_list 
-    echo "logiciels installer: $software_list"
-}
+   # read -p "spécifier les noms des logiciels à installer : " software_list
+   # sudo apt-get update &>/dev/null
+   # sudo apt-get install -y $software_list &>/dev/null 
+   # echo "logiciels installer: $software_list"
+   read -p "spécifier les noms des logiciels à installer : " software_list
+
+# Check if the software list is not empty
+   if [ -n "$software_list" ]; then
+        sudo apt update  &>/dev/null  # c'est toujours bien de verifier que le repertory est bien ajour, donc on update toujours avant d'installer n'importe quoi.
+        sudo apt install -y $software_list  # Instalation de l'apt du logiciel r'ensegner 
+        if [ $? -eq 0 ]; then #si la sorti $?=0 alors l'insalation a bien etait faite 
+                echo "le logiciel: $software_list, a bien était intaler!! Let's GOOOO"
+        else
+                echo "UPS il parait avoir in problème avec l'instalation 😅 "# si $? !=0 alor il y a eu un probleme.    
+        fi
+   else
+        echo "Nop le logiciel $software_list n'existe pas 😅" 
+   fi
+
+ } 
 
 # Function for network configuration
 network_configuration() {
@@ -85,7 +100,7 @@ while true; do
     echo "4.Configuration réseau  "
     echo "5.Quitter "
    
-    read -p "Enter your choice (1-5): " choice
+    read -p "Entrer votre choix (1-5): " choice
 
     case $choice in
         1) configure_hostname ;;
@@ -93,6 +108,6 @@ while true; do
         3) install_software ;;
         4) network_configuration ;;
         5) echo "ADIOS!"; exit ;;
-        *) echo "Invalid choice. Please enter a number between 1 and 5." ;;
+        *) echo "NOP le choix doit etre entre 1 & 5." ;;
     esac
 done
