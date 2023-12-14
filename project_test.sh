@@ -4,36 +4,36 @@
 configure_hostname() {
     read -p "spécifier un nouveau nom d'hôte pour la machine. : " new_hostname
     sudo hostnamectl set-hostname "$new_hostname"
-    echo "Mon nouveaux nom c'est: $new_hostname."
+    echo "Mon nouveau nom est: $new_hostname."
     
 }
 
 # Function to create a new user
 create_new_user() {
-    read -p "Enter le noms d'utilisateur : " username
-    read -p "Enter le mot de passe pour: $username: " password
+    read -p "Entrer le nom d'utilisateur : " username
+    read -p "Entrer le mot de passe pour: $username: " password
     if grep -q "$username:" /etc/passwd; then
-	    echo "l'utilisateur existe deja"
+	    echo "l'utilisateur existe déjà"
 	    
 	    
     else
     	sudo useradd -m -s /bin/bash "$username" &>/dev/null 
     	echo "$username:$password" | sudo chpasswd
     	echo "User $username créé."
-    	read -p "voulez vous ajouter $username dans un  group? (yes/no): " add_user_to_group
+    	read -p "voulez vous ajouter $username dans un groupe ? (yes/no): " add_user_to_group
 
     	if [ "$add_user_to_group" = "yes" ]; then
-    		read -p "Enter le groupe : " group_name
+    		read -p "Entrer le groupe : " group_name
 
     	if grep -q "$group_name:" /etc/group; then
-        	read -p "Le group '$group_name' existe. Voulez-vous ajouter l’utilisateur à ce groupe? (yes/no): " add_to_existing_group
+        	read -p "Le groupe '$group_name' existe. Voulez-vous ajouter l’utilisateur à ce groupe? (yes/no): " add_to_existing_group
 
         	if [ "$add_to_existing_group" = "yes" ]; then
             		echo "¢a marche, on va ajouter $username, dans $group_name "
             		sudo adduser "$username" "$group_name"
-            		echo "User '$username' est mantenat dans le groupe'$group_name'."
+            		echo "User '$username' est maintenant dans le groupe'$group_name'."
         	else
-            		echo "On arrete."
+            		echo "On arrête."
             		exit 1
 		fi
     	else
@@ -46,7 +46,7 @@ create_new_user() {
             		sudo adduser "$username" "$group_name"
             		echo "User '$username' a était ajouté '$group_name'."
         	else
-            		echo "le roupe n'a pas était créé. BYE."
+            		echo "le groupe n'a pas été créé. CIAO."
             		exit 1
         	fi
     	fi
@@ -76,12 +76,12 @@ install_software() {
         sudo apt update  &>/dev/null  # c'est toujours bien de verifier que le repertory est bien ajour, donc on update toujours avant d'installer n'importe quoi.
         sudo apt install -y $software_list  # Instalation de l'apt du logiciel r'ensegner 
         if [ $? -eq 0 ]; then #si la sorti $?=0 alors l'insalation a bien etait faite 
-                echo "le logiciel: $software_list, a bien était intaler!! Let's GOOOO"
+                echo "le logiciel: $software_list, a bien été installé!! Let's GOOOO"
         else
-                echo "UPS il parait avoir in problème avec l'instalation 😅 "# si $? !=0 alor il y a eu un probleme.    
+                echo "OUPS il semble y avoir un problème avec l'installation 😅 "# si $? !=0 alors il y a eu un probleme.    
         fi
    else
-        echo "Nop le logiciel $software_list n'existe pas 😅" 
+        echo "Nope le logiciel $software_list n'existe pas 😅" 
    fi
 
  } 
@@ -108,6 +108,6 @@ while true; do
         3) install_software ;;
         4) network_configuration ;;
         5) echo "ADIOS!"; exit ;;
-        *) echo "NOP le choix doit etre entre 1 & 5." ;;
+        *) echo "NOPE le choix doit etre entre 1 & 5." ;;
     esac
 done
