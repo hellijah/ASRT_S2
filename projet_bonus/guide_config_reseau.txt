@@ -1,0 +1,35 @@
+Guide d'utilisation du script de configuration réseau
+
+Instructions :
+	Exécution du script :
+
+Ouvrez un terminal.
+	Tapez bash nom_du_script.sh et appuyez sur Entrée.
+
+Suivez les instructions :
+
+	Le script posera des questions pour configurer votre réseau.
+	Répondez aux questions en tapant les informations demandées et appuyez sur Entrée.
+
+Entrez les informations :
+
+	Lorsqu'on vous demande l'adresse IP, entrez une adresse de ce type : 192.168.0.1.
+	Pour le masque de sous-réseau, entrez un nombre comme 24.
+	Saisissez la passerelle, le DNS primaire et secondaire lorsqu'ils sont demandés.
+
+Gestion des erreurs :
+
+	Si vous faites une erreur, le script vous avertira et vous pourrez recommencer.
+
+confirmation :
+
+	Une fois toutes les informations valides, le script appliquera les configurations réseau.
+
+Configurer un autre réseau :
+
+	Si vous voulez configurer un autre réseau, tapez "O" et appuyez sur Entrée.
+	Pour quitter, tapez "N".
+
+Fin de l'exécution :
+
+	Le script se terminera et vous verrez les paramètres réseau configurés.
