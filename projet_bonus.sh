@@ -1,4 +1,18 @@
 # RESTE ENCORE A TESTER !!
+#!/bin/bash
+
+# Vérification de la présence de dialog et installation le cas échéant
+if ! command -v dialog &> /dev/null; then
+    read -p "Le programme 'dialog' n'est pas installé. Souhaitez-vous l'installer ? (oui/non) : " install_dialog
+    if [ "$install_dialog" = "oui" ]; then
+        # Installation de dialog
+        apt-get update
+        apt-get install -y dialog
+    else
+        echo "Installation de 'dialog' annulée."
+        exit 1
+    fi
+fi
 
 while true; do
     read -p "Entrez l'adresse IP : " adresse_ip
