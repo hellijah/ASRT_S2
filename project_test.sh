@@ -46,12 +46,12 @@ create_new_user() {
             		sudo adduser "$username" "$group_name"
             		echo "User '$username' a était ajouté '$group_name'."
         	else
-            		echo "le groupe n'a pas été créé. CIAO."
+            		echo "le groupe n'a pas été créé."
             		exit 1
         	fi
     	fi
  	elif [ "$add_user_to_group" = "no" ]; then
-    		echo "Pas de probleme, ADIOS "
+    		echo "Pas de probleme. "
 	else
     		echo "Choix non valide. Veuillez entrer 'yes' or 'no'."
     		exit 1
@@ -76,12 +76,12 @@ install_software() {
         sudo apt update  &>/dev/null  # c'est toujours bien de verifier que le repertory est bien ajour, donc on update toujours avant d'installer n'importe quoi.
         sudo apt install -y $software_list  # Instalation de l'apt du logiciel r'ensegner 
         if [ $? -eq 0 ]; then #si la sorti $?=0 alors l'insalation a bien etait faite 
-                echo "le logiciel: $software_list, a bien été installé!! Let's GOOOO"
+                echo "le logiciel: $software_list, a bien été installé!"
         else
-                echo "OUPS il semble y avoir un problème avec l'installation 😅 "# si $? !=0 alors il y a eu un probleme.    
+                echo "Il semble y avoir un problème avec l'installation . "# si $? !=0 alors il y a eu un probleme.    
         fi
    else
-        echo "Nope le logiciel $software_list n'existe pas 😅" 
+        echo "Le logiciel $software_list n'existe pas ." 
    fi
 
  } 
@@ -107,7 +107,7 @@ while true; do
         2) create_new_user ;;
         3) install_software ;;
         4) network_configuration ;;
-        5) echo "ADIOS!"; exit ;;
-        *) echo "NOPE le choix doit etre entre 1 & 5." ;;
+        5) echo "au revoir!"; exit ;;
+        *) echo "Choix incorrect , effectuez un choix entre 1 & 5." ;;
     esac
 done
