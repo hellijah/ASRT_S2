@@ -8,7 +8,7 @@ green='\033[1;32m'
 clear='\033[0m'
 
 # Fonction pour configurer le nom d'hôte
-cconfigure_hostname() {
+configure_hostname() {
     read -p "spécifier un nouveau nom d'hôte pour la machine. : " new_hostname
     sudo hostnamectl set-hostname "$new_hostname"
     echo "Mon nouveau nom est: $new_hostname."
@@ -16,7 +16,7 @@ cconfigure_hostname() {
 }
 
 # Fonction pour créer un nouvel utilisateur
-ccreate_new_user() {
+create_new_user() {
     read -p "Entrer le nom d'utilisateur : " username
     read -p "Entrer le mot de passe pour: $username: " password
     if grep -q "$username:" /etc/passwd; then
@@ -81,8 +81,8 @@ install_software() {
 # Check if the software list is not empty
    if [ -n "$software_list" ]; then
         sudo apt update  &>/dev/null  # c'est toujours bien de verifier que le repertory est bien ajour, donc on update toujours avant d'installer n'importe quoi.
-        sudo apt install -y $software_list  # Instalation de l'apt du logiciel r'ensegner 
-        if [ $? -eq 0 ]; then #si la sorti $?=0 alors l'insalation a bien etait faite 
+        sudo apt install -y $software_list  # Installation de l'apt du logiciel à renseigner 
+        if [ $? -eq 0 ]; then #si la sorti $?=0 alors l'instalation a bien eté faite 
                 echo "le logiciel: $software_list, a bien été installé!"
         else
                 echo "Il semble y avoir un problème avec l'installation . "# si $? !=0 alors il y a eu un probleme.    
