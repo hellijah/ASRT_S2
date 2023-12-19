@@ -1,5 +1,13 @@
 #!/bin/bash
 
+# Ajout des variables de couleur
+red='\033[0;31m'
+yellow='\033[1;31m'
+green='\033[1;32m'
+# Couleur standard
+clear='\033[0m'
+
+
 # Function to configure the host name
 configure_hostname() {
     read -p "spécifier un nouveau nom d'hôte pour la machine. : " new_hostname
@@ -44,7 +52,7 @@ create_new_user() {
             		echo "Groupe '$group_name'créé ."
           
             		sudo adduser "$username" "$group_name"
-            		echo "User '$username' a était ajouté '$group_name'."
+            		echo "User '$username' a été ajouté '$group_name'."
         	else
             		echo "le groupe n'a pas été créé."
             		exit 1
@@ -73,10 +81,10 @@ install_software() {
 
 # Check if the software list is not empty
    if [ -n "$software_list" ]; then
-        sudo apt update  &>/dev/null  # c'est toujours bien de verifier que le repertory est bien ajour, donc on update toujours avant d'installer n'importe quoi.
-        sudo apt install -y $software_list  # Instalation de l'apt du logiciel r'ensegner 
-        if [ $? -eq 0 ]; then #si la sorti $?=0 alors l'insalation a bien etait faite 
-                echo "le logiciel: $software_list, a bien été installé!"
+        sudo apt update  &>/dev/null  # c'est toujours bien de verifier que le repertory est bien à jour, donc on update toujours avant d'installer n'importe quoi.
+        sudo apt install -y $software_list  # Installation de l'apt du logiciel renseigné 
+        if [ $? -eq 0 ]; then #si la sorti $?=0 alors l'installation a bien été faite 
+                echo "le logiciel: $software_list, a bien été installé !"
         else
                 echo "Il semble y avoir un problème avec l'installation . "# si $? !=0 alors il y a eu un probleme.    
         fi
@@ -88,8 +96,58 @@ install_software() {
 
 # Function for network configuration
 network_configuration() {
-    echo "vous avez choisi l'option Configuration Réseau"
-    notify-send Atention "La configuration réseau n’est pas implémentée dans cette démo ."
+   
+    # Vérification de la présence de dialog et installation le cas échéant
+if ! command -v dialog &> /dev/null; then
+    read -p "Le programme 'dialog' n'est pas installé. Souhaitez-vous l'installer ? (oui/non) : " install_dialog
+    if [ "$install_dialog" = "oui" ]; then
+        # Installation de dialog
+        apt-get update
+        apt-get install -y dialog
+    else
+        echo "Installation de 'dialog' annulée."
+        exit 1
+    fi
+fi
+
+while true; do
+    read -p "Entrez l'adresse IP : " adresse_ip
+    read -p "Entrez le masque de sous-réseau : " masque_sous_reseau
+    read -p "Entrez la passerelle par défaut : " passerelle
+    read -p "Entrez le serveur DNS primaire : " dns_primaire
+    read -p "Entrez le serveur DNS secondaire : " dns_secondaire
+    # Vérification de la validité de l'adresse IP et du masque de sous-réseau
+    if ! [[ $adresse_ip =~ ^[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
+        echo "Adresse IP invalide. Veuillez entrer une adresse IP valide."
+        continue
+    else
+        echo "Adresse IP valide : $adresse_ip"
+    fi
+    if ! [[ $masque_sous_reseau =~ ^[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
+        echo "Masque de sous-réseau invalide. Veuillez entrer un masque valide (ex: 255.255.255.0)."
+        continue
+    else
+        echo "Masque de sous-réseau valide : $masque_sous_reseau"
+    fi
+    # Configuration du réseau avec les informations fournies, Changer "eth0" selon votre interface réseau
+    sudo ip addr add $adresse_ip/$masque_sous_reseau dev eth0 || { echo "Erreur lors de la configuration de l'adresse IP."; break; }
+    sudo ip route add default via $passerelle || { echo "Erreur lors de l'ajout de la passerelle."; break; }
+    echo "nameserver $dns_primaire" | sudo tee /etc/resolv.conf > /dev/null || { echo "Erreur lors de la configuration du DNS primaire."; break; }
+    echo "nameserver $dns_secondaire" | sudo tee -a /etc/resolv.conf > /dev/null || { echo "Erreur lors de la configuration du DNS secondaire."; break; }
+    # Affichage des informations renseignées
+    echo "Informations renseignées :"
+    echo "Adresse IP : $adresse_ip"
+    echo "Masque de sous-réseau : $masque_sous_reseau"
+    echo "Passerelle par défaut : $passerelle"
+    echo "Serveur DNS primaire : $dns_primaire"
+    echo "Serveur DNS secondaire : $dns_secondaire"
+    echo "Les paramètres réseau ont été configurés avec succès."
+    read -p "Voulez-vous configurer un autre réseau ? (O/N) " reponse
+    if [ "$reponse" != "O" ]; then
+        echo "Au revoir !"
+        break
+    fi
+done
 }
 
 while true; do
