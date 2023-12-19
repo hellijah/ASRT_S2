@@ -1,12 +1,5 @@
 #!/bin/bash
 
-# Ajout des variables de couleur
-red='\033[0;31m'
-yellow='\033[1;31m'
-green='\033[1;32m'
-# Couleur standard
-clear='\033[0m'
-
 # Fonction pour configurer le nom d'hôte
 configure_hostname() {
     read -p "spécifier un nouveau nom d'hôte pour la machine. : " new_hostname
@@ -184,7 +177,8 @@ while true; do
         'q')  # Touche "q" pour quitter
             echo "Au revoir !"
             break ;;
-        $'\n')  # Touche Entrée pour sélectionner
+        #$'\n')  # Touche Entrée pour sélectionner
+        'v') # touche v pour valider
             echo "Vous avez choisi : ${options[selected]}"
             case $selected in
                 0) configure_hostname;;
