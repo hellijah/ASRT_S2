@@ -27,7 +27,7 @@ while true; do
     else
         echo "Adresse IP valide : $adresse_ip"
     fi
-    if ! [[ $masque_sous_reseau =~ ^[0-9]+$ ]]; then
+    if ! [[ $masque_sous_reseau =~ ^[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
         echo "Masque de sous-réseau invalide. Veuillez entrer un masque valide (ex: 255.255.255.0)."
         continue
     else
