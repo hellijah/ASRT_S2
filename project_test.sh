@@ -19,8 +19,19 @@ configure_hostname() {
 
 # Function to create a new user
 create_new_user() {
-    read -p "Entrer le nom d'utilisateur : " username
-    read -p "Entrer le mot de passe pour: $username: " password
+    while true; do
+        read -p "Entrer le nom d'utilisateur : " username
+        read -p "Entrer le mot de passe pour: $username: " password
+        # test password fort
+        
+        # confirmation password
+        read -p "Entrer le password pour confirmer" password2
+        if [ "$password" = "$password2"]; then
+            break
+        else
+    done
+
+
     if grep -q "$username:" /etc/passwd; then
 	    echo -e "$yellow l'utilisateur existe déjà $clear "
 	    
@@ -29,15 +40,16 @@ create_new_user() {
     	sudo useradd -m -s /bin/bash "$username" &>/dev/null 
     	echo "$username:$password" | sudo chpasswd
     	echo -e "$green User $username créé. $clear"
-    	read -p "voulez vous ajouter $username dans un groupe ? (yes/no): " add_user_to_group
+    	read -p "voulez vous ajouter $username dans un groupe ? (o/n): " add_user_to_group
 
-    	if [ "$add_user_to_group" = "yes" ]; then
+# if echo "Bonjour le monde" | grep -i "$motif";
+    	if [ "$add_user_to_group" = "o" ]; then
     		read -p "Entrer le groupe : " group_name
 
     	if grep -q "$group_name:" /etc/group; then
-        	read -p "$yellow Le groupe '$group_name' existe. Voulez-vous ajouter l’utilisateur à ce groupe? (yes/no): $clear " add_to_existing_group
+        	read -p "$yellow Le groupe '$group_name' existe. Voulez-vous ajouter l’utilisateur à ce groupe? (o/n): $clear " add_to_existing_group
 
-        	if [ "$add_to_existing_group" = "yes" ]; then
+        	if [ "$add_to_existing_group" = "o" ]; then
             		echo -e "¢a marche, on va ajouter $username, dans $group_name "
             		sudo adduser "$username" "$group_name"
             		echo -e "$green User '$username' est maintenant dans le groupe'$group_name'. $clear "
@@ -46,9 +58,9 @@ create_new_user() {
             		exit 1
 		fi
     	else
-        	read -p "$yellow le groupe '$group_name' n’existe pas. Voulez-vous créer ce groupe? (yes/no): $clear" create_group
+        	read -p "$yellow le groupe '$group_name' n’existe pas. Voulez-vous créer ce groupe? (o/n): $clear" create_group
 
-        	if [ "$create_group" = "yes" ]; then
+        	if [ "$create_group" = "o" ]; then
             		sudo groupadd "$group_name"
             		echo "Groupe '$group_name'créé ."
           
@@ -59,10 +71,10 @@ create_new_user() {
             		exit 1
         	fi
     	fi
- 	elif [ "$add_user_to_group" = "no" ]; then
+ 	elif [ "$add_user_to_group" = "n" ]; then
     		echo -e "$green Pas de probleme. $clear "
 	else
-    		echo -e "$yellow Choix non valide. Veuillez entrer 'yes' or 'no'. $clear"
+    		echo -e "$yellow Choix non valide. Veuillez entrer 'o' ou 'n'. $clear"
     		exit 1
 	fi
 
@@ -100,8 +112,8 @@ network_configuration() {
    
     # Vérification de la présence de dialog et installation le cas échéant
 if ! command -v dialog &> /dev/null; then
-    read -p "$yellow Le programme 'dialog' n'est pas installé. Souhaitez-vous l'installer ? (oui/non) : $clear " install_dialog
-    if [ "$install_dialog" = "oui" ]; then
+    read -p "$yellow Le programme 'dialog' n'est pas installé. Souhaitez-vous l'installer ? (o/n) : $clear " install_dialog
+    if [ "$install_dialog" = "o" ]; then
         # Installation de dialog
         apt-get update
         apt-get install -y dialog
@@ -143,8 +155,8 @@ while true; do
     echo "Serveur DNS primaire : $dns_primaire"
     echo "Serveur DNS secondaire : $dns_secondaire"
     echo "Les paramètres réseau ont été configurés avec succès."
-    read -p "Voulez-vous configurer un autre réseau ? (O/N) " reponse
-    if [ "$reponse" != "O" ]; then
+    read -p "Voulez-vous configurer un autre réseau ? (o/n) " reponse
+    if [ "$reponse" != "o" ]; then
         echo "Au revoir !"
         break
     fi
