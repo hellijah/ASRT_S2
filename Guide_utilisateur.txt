@@ -1,0 +1,62 @@
+Guide d'Utilisation du Script
+
+
+
+Menu Principal
+
+Navigation : Le menu principal offre cinq options.
+Pour sélectionner une action, entrez le numéro correspondant à votre choix.
+Vous pouvez configurer le Nom d'Hôte, créer un Nouvel Utilisateur, installer des Logiciels, configurer le Réseau ou quitter le script.
+
+
+
+Configuration du Nom d'Hôte
+
+Objectif : Changer le nom de la machine.
+
+Étapes :
+
+Le script demandera de saisir un nouveau nom pour la machine.
+Une fois le nom entré, la confirmation du nouveau nom sera affichée.
+
+
+
+Création d'un Nouvel Utilisateur
+
+Objectif : Ajouter un nouvel utilisateur au système.
+
+Étapes :
+
+Vous serez invité à entrer un nom d'utilisateur et un mot de passe pour celui-ci.
+Si l'utilisateur existe déjà, le script vous en informera.
+Ensuite, vous pourrez choisir de l'ajouter à un groupe existant ou de créer un nouveau groupe.
+Suivant vos choix, l'utilisateur sera ajouté au groupe approprié.
+
+
+
+Installation de Logiciels
+
+Objectif : Installer des logiciels sur la machine.
+
+Étapes :
+
+Vous devrez spécifier le nom du ou des logiciels que vous souhaitez installer.
+Le script vérifiera la validité des noms fournis et procédera à leur installation.
+Une confirmation de l'installation réussie ou un message d'erreur seront affichés.
+
+
+
+Configuration Réseau
+
+Objectif : Configurer les paramètres réseau de la machine.
+
+Étapes :
+
+Vous devrez saisir les informations suivantes :
+Adresse IP, Masque de sous-réseau, Passerelle par défaut, Serveurs DNS primaire et secondaire.
+Le script vérifiera la validité des informations saisies et configurera le réseau.
+Les détails renseignés seront affichés pour confirmation.
+Vous aurez la possibilité de configurer un autre réseau si nécessaire.
+
+
+le lien Gist vers le guide : https://gist.github.com/Malkymoux/0dee713151d524cd5c9ebb547a5728bc
