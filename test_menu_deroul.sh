@@ -168,7 +168,7 @@ while true; do
     read -rsn1 key  # Lecture d'un seul caractère pour détecter les touches
     case $key in
         $'\x1B')  # Touche ESC pour quitter
-            read -rsn2 -t 0.1 key
+            #read -rsn2 -t 0.1 key
             if [ "$key" == "[A" ] && [ $selected -gt 0 ]; then
                 ((selected--))
             elif [ "$key" == "[B" ] && [ $selected -lt $((${#options[@]}-1)) ]; then
