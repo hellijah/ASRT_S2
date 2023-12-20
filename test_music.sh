@@ -17,10 +17,7 @@ fi
 # Utilisation de SoX pour générer un son
 #play -n synth <duration> sin <frequency>
 
-play -n synth 0.5 sin 440
-sleep 1
-play -n synth 1 sin 440
-sleep 1
-play -n synth 1 sin 440
-sleep 0.5
+play -n synth 0.5 sin 440 && sleep 1 && play -n synth 1 sin 440 && sleep 1 && play -n synth 1 sin 440 && sleep 0.5
 
+# sudo apt-get install mpg123
+# mpg123 Cuisinella_Jingle.mp3 
