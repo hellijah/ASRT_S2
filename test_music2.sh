@@ -33,8 +33,8 @@ fi
 
 
 
-mpg123 /home/thierry/Téléchargements/Cuisinella_Jingle.mp3 &> /dev/null
-
+mpg123 ~/Téléchargements/Cuisinella_Jingle.mp3 &> /dev/null
+# mpg123 /home/thierry/Téléchargements/Cuisinella_Jingle.mp3 &> /dev/null
 
 
 
