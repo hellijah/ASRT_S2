@@ -18,20 +18,55 @@ configure_hostname() {
     
 }
 
+#!/bin/bash
+
+# Fonction pour tester la force du mot de passe
+check_password_strength() {
+    password=$1
+    length=${#password}
+    has_lowercase=$(echo "$password" | grep -q [a-z] && echo "true" || echo "false")
+    has_uppercase=$(echo "$password" | grep -q [A-Z] && echo "true" || echo "false")
+    has_digit=$(echo "$password" | grep -q [0-9] && echo "true" || echo "false")
+    has_special=$(echo "$password" | grep -q '[^A-Za-z0-9]' && echo "true" || echo "false")
+
+    # Évaluer différentes caractéristiques du mot de passe
+    if [ "$length" -ge 8 ] && [ "$has_lowercase" = "true" ] && [ "$has_uppercase" = "true" ] && [ "$has_digit" = "true" ] && [ "$has_special" = "true" ]; then
+        echo "Le mot de passe est fort."
+        exit 0
+    else
+        echo "Le mot de passe est faible. Assurez-vous qu'il a au moins 8 caractères, des lettres majuscules, des lettres minuscules, des chiffres et des caractères spéciaux."
+        exit 1
+    fi
+}
+
 # Function to create a new user
 create_new_user() {
-    # while true; do
+    while true; do
 
         read -p "Entrer le nom d'utilisateur : " username
-        read -p "Entrer le mot de passe pour: $username: " password
         # test password fort
+        while true; do
+            # Demander à l'utilisateur d'entrer le mot de passe à tester
+            read -s -p "Entrez le mot de passe à tester : " password
+            # echo
+
+            # Tester la force du mot de passe
+            check_password_strength "$password"
+
+            if [ "$?" -eq 0 ]; then
+                break
+            fi
+
+        done
 
         # confirmation password
-        # read -p "Entrer le password pour confirmer" password2
-        # if [ "$password" = "$password2"]; then
-           # break
-        #else
-    # done
+        read -s -p "Entrer le password à nouveau pour confirmer : " password2
+        if [ "$password" = "$password2" ]; then
+            echo -e "$green Password Validé $clear"
+            break
+        else
+            echo -e "$red le Password ne correspond $clear "
+    done
 
     if grep -q "$username:" /etc/passwd; then
 	    echo -e "$yellow l'utilisateur existe déjà $clear "
@@ -169,7 +204,7 @@ while true; do
 done
 }
 
-# Function for network configuration
+# Function for easter egg Jingle
 jingle_cuisinella() {
 if ! command -v mpg123 &> /dev/null; then
     echo -e "$yellow Le programme 'mpg123' n'est pas installé. Souhaitez-vous l'installer ? (o/n) : $clear " 
@@ -211,8 +246,29 @@ mpg123 ./Cuisinella_Jingle.mp3 &> /dev/null
     # esac
 # done
 
+# Function for Audio_guide
+Audio_guide() {
+if ! command -v mpg123 &> /dev/null; then
+    echo -e "$yellow Le programme 'mpg123' n'est pas installé. Souhaitez-vous l'installer ? (o/n) : $clear " 
+    read install_mpg123
+    if [ "$install_mpg123" = "o" ]; then
 
-options=("Configuration du Nom d'Hôte" "Création d'un Nouvel Utilisateur" "Installation de Logiciels" "Configuration Réseau" "quitter")
+        # Installation de mpg123
+        apt-get update
+        apt-get install -y mpg123
+    else
+        echo -e "$red Installation de 'mpg123' annulée. $clear"
+        exit 1
+    fi
+fi
+
+# fonctionne si fichier MP3 dans le même dossier que le script
+mpg123 ./Audio_guide.mp3 &> /dev/null
+
+}
+
+
+options=("Configuration du Nom d'Hôte" "Création d'un Nouvel Utilisateur" "Installation de Logiciels" "Configuration Réseau" "Audio guide utilisateur" "quitter")
 
 # Fonction pour afficher le menu
 afficher_menu() {
@@ -256,7 +312,8 @@ while true; do
                 1) create_new_user;;
                 2) install_software;;
                 3) network_configuration;;
-                4) echo "au revoir!"; exit ;;
+                4) Audio_guide;; 
+                5) echo "au revoir!"; exit ;;
 
             esac
             read -rsp "Appuyez sur n'importe quelle touche pour continuer..." -n1 key ;;
