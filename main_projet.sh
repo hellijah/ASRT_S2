@@ -58,7 +58,8 @@ create_new_user() {
             		exit 1
 		fi
     	else
-        	read -p "$yellow le groupe '$group_name' n’existe pas. Voulez-vous créer ce groupe? (o/n): $clear" create_group
+        	echo -e "$yellow le groupe '$group_name' n’existe pas. Voulez-vous créer ce groupe? (o/n): $clear" 
+            read create_group
 
         	if [ "$create_group" = "o" ]; then
             		sudo groupadd "$group_name"
@@ -112,7 +113,8 @@ network_configuration() {
    
     # Vérification de la présence de dialog et installation le cas échéant
 if ! command -v dialog &> /dev/null; then
-    read -p "$yellow Le programme 'dialog' n'est pas installé. Souhaitez-vous l'installer ? (o/n) : $clear " install_dialog
+    echo -e "$yellow Le programme 'dialog' n'est pas installé. Souhaitez-vous l'installer ? (o/n) : $clear " 
+    read install_dialog
     if [ "$install_dialog" = "o" ]; then
         # Installation de dialog
         apt-get update
@@ -166,8 +168,9 @@ done
 # Function for network configuration
 jingle_cuisinella() {
 if ! command -v mpg123 &> /dev/null; then
-    read -p "$yellow Le programme 'mpg123' n'est pas installé. Souhaitez-vous l'installer ? (oui/non) : $clear " install_mpg123
-    if [ "$install_mpg123" = "oui" ]; then
+    echo -e "$yellow Le programme 'mpg123' n'est pas installé. Souhaitez-vous l'installer ? (o/n) : $clear " 
+    read install_mpg123
+    if [ "$install_mpg123" = "o" ]; then
 
         # Installation de mpg123
         apt-get update
