@@ -32,10 +32,10 @@ check_password_strength() {
     # Évaluer différentes caractéristiques du mot de passe
     if [ "$length" -ge 8 ] && [ "$has_lowercase" = "true" ] && [ "$has_uppercase" = "true" ] && [ "$has_digit" = "true" ] && [ "$has_special" = "true" ]; then
         echo "Le mot de passe est fort."
-        exit 0
+        return 0
     else
         echo "Le mot de passe est faible. Assurez-vous qu'il a au moins 8 caractères, des lettres majuscules, des lettres minuscules, des chiffres et des caractères spéciaux."
-        exit 1
+        return 1
     fi
 }
 
@@ -47,25 +47,28 @@ create_new_user() {
         # test password fort
         while true; do
             # Demander à l'utilisateur d'entrer le mot de passe à tester
-            read -s -p "Entrez le mot de passe à tester : " password
+            read -p "Entrez le mot de passe à tester : " password
             # echo
 
             # Tester la force du mot de passe
             check_password_strength "$password"
+            
+            code_erreur=$?
 
-            if [ "$?" -eq 0 ]; then
-                break
+            if [ $code_erreur -eq 0 ]; then
+                break            
             fi
 
         done
 
         # confirmation password
-        read -s -p "Entrer le password à nouveau pour confirmer : " password2
+        read -p "Entrer le password à nouveau pour confirmer : " password2
         if [ "$password" = "$password2" ]; then
             echo -e "$green Password Validé $clear"
             break
         else
             echo -e "$red le Password ne correspond $clear "
+        fi
     done
 
     if grep -q "$username:" /etc/passwd; then
