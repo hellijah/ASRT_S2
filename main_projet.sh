@@ -19,18 +19,18 @@ configure_hostname() {
 
 # Function to create a new user
 create_new_user() {
-    while true; do
+    # while true; do
+
         read -p "Entrer le nom d'utilisateur : " username
         read -p "Entrer le mot de passe pour: $username: " password
         # test password fort
-        
-        # confirmation password
-        read -p "Entrer le password pour confirmer" password2
-        if [ "$password" = "$password2"]; then
-            break
-        else
-    done
 
+        # confirmation password
+        # read -p "Entrer le password pour confirmer" password2
+        # if [ "$password" = "$password2"]; then
+           # break
+        #else
+    # done
 
     if grep -q "$username:" /etc/passwd; then
 	    echo -e "$yellow l'utilisateur existe déjà $clear "
@@ -163,6 +163,26 @@ while true; do
 done
 }
 
+# Function for network configuration
+jingle_cuisinella() {
+if ! command -v mpg123 &> /dev/null; then
+    read -p "$yellow Le programme 'mpg123' n'est pas installé. Souhaitez-vous l'installer ? (oui/non) : $clear " install_mpg123
+    if [ "$install_mpg123" = "oui" ]; then
+
+        # Installation de mpg123
+        apt-get update
+        apt-get install -y mpg123
+    else
+        echo -e "$red Installation de 'mpg123' annulée. $clear"
+        exit 1
+    fi
+fi
+
+# fonctionne si fichier MP3 dans le même dossier que le script
+mpg123 ./Cuisinella_Jingle.mp3 &> /dev/null
+
+}
+
 # while true; do
     # clear
     # echo -e "$green_background===== Configuration Menu =====$clear"
@@ -212,7 +232,7 @@ while true; do
     read -rsn1 key  # Lecture d'un seul caractère pour détecter les touches
     case $key in
         $'\x1B')  # Touche ESC pour quitter
-            #read -rsn2 -t 0.1 key
+            read -rsn2 -t 0.1 key
             if [ "$key" == "[A" ] && [ $selected -gt 0 ]; then
                 ((selected--))
             elif [ "$key" == "[B" ] && [ $selected -lt $((${#options[@]}-1)) ]; then
@@ -229,7 +249,14 @@ while true; do
                 1) create_new_user;;
                 2) install_software;;
                 3) network_configuration;;
+
             esac
-            read -rsp $'Appuyez sur n\'importe quelle touche pour continuer...\n' -n1 key ;;
+            read -rsp "Appuyez sur n'importe quelle touche pour continuer..." -n1 key ;;
+        'e') # touche e pour jingle
+            jingle_cuisinella;;
+
+        #'*') # toutes autres touche donne un choix invalide
+
+
     esac
 done
