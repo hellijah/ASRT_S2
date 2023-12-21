@@ -1,5 +1,24 @@
 #!/bin/bash
 
+# # Installation de Speech Dispatcher
+# #sudo apt update
+# #sudo apt install -y speech-dispatcher
+
+# # Fonction pour l'option audio pour les personnes malvoyantes
+# option_audio_malvoyants() {
+#     echo "Activation de l'option audio pour les personnes malvoyantes..."
+#     spd-say "Ceci est un test."
+# }
+
+
+# # Vérification de l'option pour les personnes malvoyantes
+# read -p "Êtes-vous malvoyant(e) ? (O/N) : " malvoyant_choix
+
+# if [[ $malvoyant_choix == "O" || $malvoyant_choix == "o" ]]; then
+#     option_audio_malvoyants
+# fi
+
+
 # Ajout des variables de couleur
 red='\e[31m'
 yellow='\e[33m'
