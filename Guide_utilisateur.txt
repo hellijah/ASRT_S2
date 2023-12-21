@@ -59,4 +59,14 @@ Les détails renseignés seront affichés pour confirmation.
 Vous aurez la possibilité de configurer un autre réseau si nécessaire.
 
 
+Guide utilisateur audio
+
+Objectif : Utiliser le guide audio afin de faciliter l'accessibilité aux personnes en situation de handicap. 
+
+Étapes :
+
+Selectionner  l'option guide audio .
+le script lanceras le fichier  audio et lira le guide .
+
+
 le lien Gist vers le guide : https://gist.github.com/Malkymoux/0dee713151d524cd5c9ebb547a5728bc
