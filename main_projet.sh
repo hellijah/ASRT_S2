@@ -263,7 +263,7 @@ if ! command -v mpg123 &> /dev/null; then
 fi
 
 # fonctionne si fichier MP3 dans le même dossier que le script
-mpg123 ./Audio_guide.mp3 &> /dev/null
+mpg123 ./guide_utilisateur.mp3 &> /dev/null
 
 }
 
