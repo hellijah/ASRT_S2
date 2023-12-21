@@ -1,0 +1,18 @@
+un menu au demarrage avec un choix  des langues 
+
+
+par exemple : 
+
+option 1 : francais  
+
+avec un "case" dans chaque option rendant silencieux les echos francais et mal voyant en fonction du choix selectionné 
+
+option 2 : anglais 
+
+option 3 : mal voyant 
+avec un fichier mp3 correspondant à chaque fois que le curseurs ( fleche ) passe sur un texte
+il le lit à haute  voix  en accedant au fichier mp3 qui correspond .
+
+
+
+
