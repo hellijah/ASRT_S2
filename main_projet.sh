@@ -5,6 +5,7 @@ red='\e[31m'
 yellow='\e[33m'
 green='\e[32m'
 green_background='\e[42m'
+blue_background='\e[44m'
 # Couleur standard
 clear='\e[0m'
 
@@ -47,7 +48,8 @@ create_new_user() {
     		read -p "Entrer le groupe : " group_name
 
     	if grep -q "$group_name:" /etc/group; then
-        	read -p "$yellow Le groupe '$group_name' existe. Voulez-vous ajouter l’utilisateur à ce groupe? (o/n): $clear " add_to_existing_group
+        	echo -e "$yellow Le groupe '$group_name' existe. Voulez-vous ajouter l’utilisateur à ce groupe? (o/n): 
+            read $clear " add_to_existing_group
 
         	if [ "$add_to_existing_group" = "o" ]; then
             		echo -e "¢a marche, on va ajouter $username, dans $group_name "
@@ -144,6 +146,8 @@ while true; do
     else
         echo -e "$green Masque de sous-réseau valide : $masque_sous_reseau $clear"
     fi
+
+
     # Configuration du réseau avec les informations fournies, Changer "eth0" selon votre interface réseau
     sudo ip addr add $adresse_ip/$masque_sous_reseau dev eth0 || { echo -e "$red Erreur lors de la configuration de l'adresse IP. $clear"; break; }
     sudo ip route add default via $passerelle || { echo -e "$red Erreur lors de l'ajout de la passerelle. $clear"; break; }
@@ -208,17 +212,17 @@ mpg123 ./Cuisinella_Jingle.mp3 &> /dev/null
 # done
 
 
-options=("Configuration du Nom d'Hôte" "Création d'un Nouvel Utilisateur" "Installation de Logiciels" "Configuration Réseau")
+options=("Configuration du Nom d'Hôte" "Création d'un Nouvel Utilisateur" "Installation de Logiciels" "Configuration Réseau" "quitter")
 
 # Fonction pour afficher le menu
 afficher_menu() {
     clear
     echo "Sélectionnez une option avec les touches fléchées et appuyez sur v pour choisir."
-    echo "Appuyez sur 'q' pour quitter."
+    # echo "Appuyez sur 'q' pour quitter."
     echo ""
     for i in "${!options[@]}"; do
         if [ $i -eq $selected ]; then
-            echo "-> ${options[i]}"
+            echo -e "-> $blue_background ${options[i]} $clear"
         else
             echo "   ${options[i]}"
         fi
@@ -252,6 +256,7 @@ while true; do
                 1) create_new_user;;
                 2) install_software;;
                 3) network_configuration;;
+                4) echo "au revoir!"; exit ;;
 
             esac
             read -rsp "Appuyez sur n'importe quelle touche pour continuer..." -n1 key ;;
