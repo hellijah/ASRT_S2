@@ -217,7 +217,7 @@ options=("Configuration du Nom d'Hôte" "Création d'un Nouvel Utilisateur" "Ins
 # Fonction pour afficher le menu
 afficher_menu() {
     clear
-    echo "Sélectionnez une option avec les touches fléchées et appuyez sur v pour choisir."
+    echo "Sélectionnez une option avec les touches fléchées et appuyez sur entrée pour choisir."
     # echo "Appuyez sur 'q' pour quitter."
     echo ""
     for i in "${!options[@]}"; do
@@ -249,7 +249,7 @@ while true; do
             echo "Au revoir !"
             break ;;
         #$'\n')  # Touche Entrée pour sélectionner
-        'v') # touche v pour valider
+        "") # touche entrée pour valider
             echo "Vous avez choisi : ${options[selected]}"
             case $selected in
                 0) configure_hostname;;
